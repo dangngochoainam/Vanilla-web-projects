@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagination</title>
+    <style>
+        *{
+            box-sizing: border-box;
+            padding: 0;
+            margin: 0;
+        }
+        body{
+            background-color: antiquewhite;
+        }
+        .follower{
+            width: 80%;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .title{
+            margin-top: 50px;
+            margin-bottom: 3px;
+        }
+        .title h1{
+            text-align: center;
+            font-size: 40px;
+        }
+        .underline{
+            margin: 0 auto;
+            width: 100px;
+            height: 3px;
+            background-color: hsl(205, 78%, 60%);
+        }
+        .container{
+            margin-top: 70px;
+            display: flex;
+            flex-wrap: wrap;
+            margin-left: 20px;
+        }
+        .user{
+            width: calc(25% - 30px);
+            background-color: white;
+            border-radius: 10px;
+            margin-right: 30px;
+            margin-bottom: 30px;
+        }
+        .img-user{
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 30px;
+        }
+        .img-user > img{
+            width: 130px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 100%;
+        }
+        .info{
+            margin: 20px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .name-user{
+            margin-bottom: 20px;
+        }
+        .btn-profile{
+            padding: 5px;
+            border: 0;
+            border-radius: 10px;
+            color: white;
+            background-color: hsl(205, 78%, 60%);
+            
+        }
+        .pagination{
+            margin: 20px 0 50px 5px;
+        }
+        .pagination button{
+            font-size: 20px;
+            padding: 5px 10px;
+            border: 0;
+            border-radius: 10px;
+            color:white;
+            background-color: hsl(205, 78%, 60%);
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Bố cục với FLEX BOX -->
+    <section class="follower">
+        <div class="title">
+            <h1>Pagination</h1>
+        </div>
+        <div class="underline"></div>
+        <div class="container">
+            <!-- <article class="user">
+                <div class="img-user">
+                    <img src="Image/pexels-sanaan-mazhar-3052361.jpg" alt="">
+                </div>
+                <div class="info">
+                    <h4 class="name-user">Đặng</h4>
+                    <button class="btn-profile">VIEW PROFILE</button>
+                </div>
+            </article> -->
+
+           
+
+
+        </div>
+        <div class="pagination">
+            <button class="btn-move btn-prev" data="prev">Prev</button>
+            <button class="btn-number" data="1">1</button>
+            <button class="btn-number" data="2">2</button>
+            <button class="btn-number" data="3">3</button>
+            <button class="btn-number" data="4">4</button>
+            <button class="btn-number" data="5">5</button>
+            <button class="btn-number" data="6">6</button>
+            <button class="btn-move btn-next" data="next">Next</button>
+        </div>
+    </section>
+    <!--  -->
+    <script>
+        let followers;
+        let index = 1;
+        const userInPage = 10;
+        const containerUser = document.querySelector('.container');
+        const btnNumbers = document.querySelectorAll('.btn-number');
+        const btnControls = document.querySelectorAll('.btn-move')
+        const url = 'https://api.github.com/users/john-smilga/followers?per_page=100'
+        //lấy ds user
+        const fetchFollowers = async () => {
+            const response = await fetch(url)
+            const data = await response.json()
+            return data
+        }
+// khởi tạo danh sách user trang đầu
+        const init = async () => {
+            followers = await fetchFollowers()
+     
+            containerUser.innerHTML = displayFollower(followers, index);
+        }
+        window.addEventListener('DOMContentLoaded', init);
+        
+        // handle khi click vào các trang
+        btnNumbers.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                let numberPage = e.target.getAttribute('data');
+                //gán số trang cho vi trí hiện tại
+                index = numberPage;
+                containerUser.innerHTML = displayFollower(followers, index);
+            })
+        })
+        btnControls.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+
+                let btnName = e.target.getAttribute('data');
+                if(btnName === 'prev' && index > 1){
+                    index--;
+                    containerUser.innerHTML = displayFollower(followers, index);
+                }
+                else if(btnName === 'next' && index < userInPage - 1){
+                    index++;
+                    containerUser.innerHTML = displayFollower(followers, index);
+                }
+            })
+        })
+
+
+// Nhận vào danh sách user và số trang để xuất ra user ở trang tương ứng
+        function displayFollower(arrUser, pageOfNumber){
+            // let countFollower = e.target.getAttribute('data');
+            let html = "";
+            for(let i = ((pageOfNumber * userInPage) - userInPage); i < pageOfNumber * userInPage; i++){
+                html += `
+                    <article class="user">
+                        <div class="img-user">
+                            <img src="${arrUser[i].avatar_url}" alt="">
+                        </div>
+                        <div class="info">
+                            <h4 class="name-user">${arrUser[i].login}</h4>
+                            <button class="btn-profile">VIEW PROFILE</button>
+                        </div>
+                    </article>
+                        `
+            }
+            return html;
+            
+        }
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabs</title>
+    <style>
+        *{
+            box-sizing: border-box;
+            padding: 0;
+            margin: 0;
+        }
+        main{
+            background-color: whitesmoke;
+            padding: 100px 0;
+        }
+        .title{
+            margin-bottom: 50px;
+            text-align: center;
+        }
+        .container{
+            display: flex;
+            justify-content: space-around;
+            padding: 0 30px;
+        }
+        .image{
+            width: 48%;
+            height: 300px;
+        }
+        .image > img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+        .about{
+            width: 48%;
+            border-radius: 10px;
+            background-color: white;
+        }
+        .btn{
+            width: 100%;
+            display: flex;
+            border-radius: 10px;
+        }
+        .btn :first-child{
+            border-radius: 10px 0 0 0;
+        }
+        .btn :last-child{
+            border-radius: 0 10px 0 0;
+        }
+        .btn button{
+            font-size: 20px;
+            letter-spacing: 3px;
+            padding: 15px 10px;
+            flex: 1;
+            border: 0;
+            transition: background-color 0.3s linear;
+        }
+        .btn button:hover{
+            background-color: rgb(76, 173, 141);
+            color: rgb(170, 170, 206);
+            cursor: pointer;
+            transition: background-color 0.3s linear;
+        }
+        .content{
+            padding: 5px 20px;
+        }
+        .content > div{
+            display: none;
+        }
+        h3{
+            margin-bottom: 10px;
+            letter-spacing: 3px;
+        }
+        .active{
+            display: block !important;
+            background-color: white;
+        }
+        .vision p{
+            margin-bottom: 10px;
+        }
+        @media screen and (max-width: 870px){
+            .container{
+                display: block;
+            }
+            .about{
+                margin: 0 auto;
+                width: 90%;
+            }
+            .image{
+                margin: 0 auto;
+                width: 90%;
+                margin-bottom: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <div class="title">
+            <h1>About</h1>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum, aperiam!</p>
+        </div>
+        <div class="container">
+            <article class="image">
+                <img src="Image/f71480881e1deb43b20c.jpg" alt="">
+            </article>
+            <article class="about">
+                <div class="btn">
+                    <button data="history" class="active">History</button>
+                    <button data="vision">Vision</button>
+                    <button data="goals">Goals</button>
+                </div>
+                <div class="content">
+                    <div class="history active">
+                        <h3>History</h3>
+                        <p>I'm baby wolf pickled schlitz try-hard normcore marfa man bun mumblecore vice pop-up XOXO lomo kombucha glossier bicycle rights. Umami kinfolk salvia jean shorts offal venmo. Knausgaard tilde try-hard, woke fixie banjo man bun. Small batch tumeric mustache tbh wayfarers 8-bit shaman chartreuse tacos. Viral direct trade hoodie ugh chambray, craft beer pork belly flannel tacos single-origin coffee art party migas plaid pop-up.</p>
+                    </div>
+                    <div class="vision">
+                        <h3>Vision </h3>
+                        <p>Man bun PBR&B keytar copper mug prism, hell of helvetica. Synth crucifix offal deep v hella biodiesel. Church-key listicle polaroid put a bird on it chillwave palo santo enamel pin, tattooed meggings franzen la croix cray. Retro yr aesthetic four loko tbh helvetica air plant, neutra palo santo tofu mumblecore. Hoodie bushwick pour-over jean shorts chartreuse shabby chic. Roof party hammock master cleanse pop-up truffaut, bicycle rights skateboard affogato readymade sustainable deep v live-edge schlitz narwhal.</p>
+                        <div>list item</div>
+                        <div>list item</div>
+                        <div>list item</div>
+                    </div>
+                    <div class="goals">
+                        <h3>Goals</h3>
+                            <p>Chambray authentic truffaut, kickstarter brunch taxidermy vape heirloom four dollar toast raclette shoreditch church-key. Poutine etsy tote bag, cred fingerstache leggings cornhole everyday carry blog gastropub. Brunch biodiesel sartorial mlkshk swag, mixtape hashtag marfa readymade direct trade man braid cold-pressed roof party. Small batch adaptogen coloring book heirloom. Letterpress food truck hammock literally hell of wolf beard adaptogen everyday carry. Dreamcatcher pitchfork yuccie, banh mi salvia venmo photo booth quinoa chicharrones.</p>
+                    </div>
+                </div>
+
+            </article>
+        </div>
+    </main>
+    <script>
+        const $ = document.querySelector.bind(document);
+        const $$ = document.querySelectorAll.bind(document);
+        const btns = $$('.btn button');
+        const contents = $$('.content > div');
+        const about = $('.about');
+        // dễ hiểu, performance không được tốt n^2
+        // btns.forEach(btn => {
+        //     btn.addEventListener('click', (e) => {
+        //         let data = e.currentTarget.getAttribute("data");
+        //         $('.btn .active').classList.remove('active');
+        //         btn.classList.add('active')
+        //         contents.forEach(content => {
+        //             if(content.getAttribute('class') == data){
+        //                 $('.content .active').classList.remove('active')
+        //                 content.classList.add('active');
+        //             }
+                    
+        //         })
+        //     })
+        // })
+
+        //performance tốt hơn 2n
+        about.addEventListener('click', (e) => {
+            const data = e.target.getAttribute('data');
+            if(data){
+                // btns.forEach(btn => {
+                //     btn.classList.remove('active');
+                // });
+                $('.btn .active').classList.remove('active')
+                e.target.classList.add('active');
+                // contents.forEach(content => {
+                //     content.classList.remove('active')
+                // })
+                $('.content .active').classList.remove('active')
+                $(`.content .${data}`).classList.add('active')
+            }
+        })
+
+        
+
+        </script>
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questions</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        .main{
+            margin:  0 auto;
+            width: 50%;
+            text-align: center;
+        }
+        h1{
+            margin: 80px 0;
+        }
+        .questions{
+            display: flex;
+            flex-direction: column;
+        }
+        .question{
+            background-color: aliceblue;
+            padding: 10px 20px;
+            margin-bottom: 20px;
+        }
+        .description{
+            display: flex;
+            justify-content: space-between;
+            padding: 20px 0;
+        }
+        
+        .show .pra{
+            padding-top:15px;
+            border-top: 2px rgb(202, 202, 176) solid;
+            display: block;
+            text-align: left;
+        }
+        .pra{
+            display: none;
+        }
+        button{
+            background-color: inherit;
+            border: 0;
+            font-size: 20px;
+            transition: transform 0.2s linear;
+        }
+        button:hover{
+            cursor: pointer;
+            transform: rotate(90deg);
+            transition: all 0.2s linear;
+        }
+        .fa-times{
+            display: none;
+        }
+        .show .fa-plus-square{
+            display: none;
+        }
+        .show .fa-times{
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="main">
+        <h1>General Questions</h1>
+        <div class="questions">
+            <div class="question">
+                <div class="description">
+                    <h3>Do You Accept All Major Credit Cards?</h3>
+                    <button class="extions"><i class="far fa-plus-square"></i> <i class="fas fa-times"></i></button>
+                </div>
+                <p class="pra">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est dolore illo dolores quia nemo doloribus quaerat, magni numquam repellat reprehenderit.</p>
+            </div>
+            <div class="question">
+                <div class="description">
+                    <h3>Do You Accept All Major Credit Cards?</h3>
+                    <button class="extions"><i class="far fa-plus-square"></i> <i class="fas fa-times"></i></button>
+                </div>
+                <p class="pra">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est dolore illo dolores quia nemo doloribus quaerat, magni numquam repellat reprehenderit.</p>
+            </div>
+            <div class="question">
+                <div class="description">
+                    <h3>Do You Accept All Major Credit Cards?</h3>
+                    <button class="extions"><i class="far fa-plus-square"></i> <i class="fas fa-times"></i></button>
+                </div>
+                <p class="pra">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est dolore illo dolores quia nemo doloribus quaerat, magni numquam repellat reprehenderit.</p>
+            </div>
+            
+        </div>
+    </div>
+    
+
+
+
+    <script>
+
+
+
+
+
+
+        const btns = document.querySelectorAll(".extions");
+        btns.forEach(btn => {
+            btn.addEventListener('click', (e)=>{
+                // e.target trả về đối tượng mà click vào
+                //console.log(e.target);
+               // const question =  e.target.parentElement.parentElement.parentElement;
+
+                // e.currentTarget trả về đối tượng mà mình đặt lắng nghe sự kiện
+                //console.log(e.currentTarget)
+                const question =  e.currentTarget.parentElement.parentElement;
+                const temp = document.querySelector('.question.show');
+                // tìm question đang show khác với question bấm vào thì xóa class show 
+                if(temp != undefined && temp != question){
+                    temp.classList.remove('show');
+                    
+                }
+                //sau đó toggle vào question vừa bấm
+                question.classList.toggle("show");;
+            })
+        })
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown</title>
+    <style>
+        *{
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        main{
+            display: flex;
+            width: 90%;
+            margin:  0 auto;
+            justify-content: space-around;
+            margin-top: 100px;
+        }
+        .image{
+            width: 40%;
+            height: 350px;
+        }
+        .image img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .content{
+            width: 40%;
+        }
+        h2{
+            color: rgb(111, 111, 219);
+            letter-spacing: 2px;
+            word-spacing: 2px;
+            font-size: 30px;
+            margin-bottom: 20px;
+        }
+        h3{
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+        p{
+            margin: 30px 0;
+        }
+        .time{
+            display: flex;
+            justify-content: space-around;
+        }
+        .time > div{
+            width: 100px;
+            height: 100px;
+            background-color: aqua;
+            text-align: center;
+        }
+        h4{
+            font-size: 30px;
+            height: 60px;
+            padding: 10px;
+            letter-spacing: 2px;
+        }
+        span{
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <div class="image">
+            <img src="Image/hinh-nen-4k-dep-cho-may-tinh-laptop-ipad-dien-thoai-di-dong-27.jpg" alt="">
+        </div>
+        <div class="content">
+            <h2>OLD IPHONE GIVEAWAY</h2>
+            <h3>Giveaway Ends On <span class = 'thu'>Friday</span>, <span class="ngay">3</span> <span class="thang">September</span> <span class="nam">2021</span> <span class="gio">11</span>:<span class="phut">30</span> am</h3>
+            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Reprehenderit molestiae cum libero atque ut voluptate qui consectetur aliquid incidunt voluptatem quos, dolore, non commodi quaerat aliquam eligendi, quisquam totam blanditiis.</p>
+            <div class="time">
+                <div class="day">
+                    <h4></h4>
+                    <span>DAYS</span>
+                </div>
+                <div class="hour">
+                    <h4></h4>
+                    <span>HOURS</span>
+                </div>
+                <div class="min">
+                    <h4></h4>
+                    <span>MINS</span>
+                </div>
+                <div class="sec">
+                    <h4></h4>
+                    <span>SECS</span>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script>
+        const items = document.querySelectorAll('.time h4');
+        const months = [
+            'January',
+            'February',
+            'March',
+            'April',
+            'May',
+            'June',
+            'July',
+            'August',
+            'September',
+            'October',
+            'November',
+            'December',
+        ];
+        const weekdays = [
+            'Sunday',
+            'Monday',
+            'Tuesday',
+            'Wednesday',
+            'Thursday',
+            'Friday',
+            'Saturday',
+        ];
+        // lấy ngày hiện tại
+        let date = new Date();
+        let year = date.getFullYear();
+        let month = date.getMonth();
+        let day = date.getDate();
+        // ngày kết thúc khuyến mãi
+        let dayFeature = new Date(year, month, day + 10, 11, 30, 00);
+        document.querySelector('span.thang').textContent = months[dayFeature.getMonth()];
+        document.querySelector('span.thu').textContent = weekdays[dayFeature.getDay()];
+        // định dạnh date
+        function format(value){
+            if(value < 10){
+                return `0${value}`;
+            }
+            return value;
+        }
+        // xử lí đếm ngược
+        function getTimeEnd(){
+            let today = new Date();
+            let t = dayFeature.getTime() - today.getTime();
+            let day = 24 * 60 * 60 * 1000;
+            let hour = 60 * 60 * 1000;
+            let minute = 60 * 1000;
+            let days = Math.floor(t / day);
+            let hours = Math.floor(t % day / hour);
+            let minutes = Math.floor(t % hour / minute);
+            let seconds = Math.floor(t % minute / 1000)
+            const value = [days, hours, minutes, seconds];
+            items.forEach((item, index) => {
+                item.textContent = format(value[index]);
+            })
+            // Khi thời gian hiện tại lớn hơn thời gian khuyến mãi thì dừng
+            if(t < 0){
+                clearInterval(countdown);
+            }
+        }
+        let countdown = setInterval(getTimeEnd, 1000);
+        getTimeEnd();
+
+        
+
+    </script>
+</body>
+</html>

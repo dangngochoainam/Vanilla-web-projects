@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slider</title>
+    <style>
+        main{
+            width: 70%;
+            height: 500px;
+            border-radius: 20px;
+            margin:  0 auto;
+            position: relative;
+            border: 5px rgb(99, 193, 221) solid;
+            overflow: hidden;
+        }
+        main > div{
+            width: 100%;
+            height: 100%;
+            border-radius: 20px;
+            position: absolute;
+            transform: translateX(0%);
+            transition: transform ease 1s;
+        }
+        h1{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 50px;
+        }
+        main > div img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 20px;
+        }
+        .btn{
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+        }
+        .btn button{
+            font-size: 20px;
+            border: 0;
+            background-color: white;
+            margin-right: 5px;
+        }
+        .hidden{
+            display: none;
+        }
+        .item1{
+            left: 0%;
+        }
+        .item2{
+            left: 100%;
+        }
+        .item3{
+            left: 200%;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <div class="item1">
+            <img src="Image/hinh-nen-4k-dep-cho-may-tinh-laptop-ipad-dien-thoai-di-dong-26.jpg" alt="">
+            <h1>1</h1>
+        </div>
+        <div class="item2">
+            <img src="Image/hinh-nen-4k-dep-cho-may-tinh-laptop-ipad-dien-thoai-di-dong-26.jpg" alt="">
+            <h1>2</h1>
+        </div>
+        <div class="item3">
+            <img src="Image/hinh-nen-4k-dep-cho-may-tinh-laptop-ipad-dien-thoai-di-dong-26.jpg" alt="">
+            <h1>3</h1>
+        </div>
+    
+        
+    </main>
+    <div class='btn'>
+        <button class="btn-pre hidden">PREV</button>
+        <button class="btn-next">NEXT</button>
+    </div>
+
+    <script>
+
+
+
+//THÔNG THƯỜNG
+        let items = document.querySelectorAll('main div')
+        const nextBtn = document.querySelector('.btn-next');
+        const prevBtn = document.querySelector('.btn-pre');
+        let dem = 0;
+        let left = 0;
+
+        function handle(){
+            if(dem > 0)
+                prevBtn.classList.remove('hidden')
+            else
+                prevBtn.classList.add('hidden')
+            if(dem < items.length - 1){
+                nextBtn.classList.remove('hidden')
+            }
+            else
+                nextBtn.classList.add('hidden')
+            
+            items.forEach((item) => {
+                item.style.transform = `translateX(-${dem * 100}%)`
+            })
+        }
+        nextBtn.addEventListener('click', () => {
+            dem++;
+            handle();
+        })
+        
+
+        prevBtn.addEventListener('click', () => {
+            dem--;
+            handle();
+            
+        })
+    </script>
+</body>
+</html>

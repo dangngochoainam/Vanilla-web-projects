@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scroll</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+   
+    <style>
+        *{
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        header{
+            background-color: transparent;
+            transition: background-color .4s linear;
+            height: 100px;
+            
+        }
+        nav{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 100%;
+            padding: 0 80px;
+            margin: 0 20px;
+        }
+        .nav__logo{
+            width: 100px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            
+        }
+        .nav__logo > img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .icon{
+            display: none;
+        }
+        a{
+            text-decoration: none;
+            width: 100%;
+            display: block;
+            margin: 0 10px;
+        }
+        ul.nav__menu{
+            list-style-type: none;
+            display: flex;
+            justify-content: space-around;
+            font-size: 25px;
+            
+        }
+        ul.nav__menu li{
+            padding: 3px 10px;
+        }
+        main{
+            text-align: center;
+            
+            font-size: 20px;
+
+        }
+        section h2 {
+            font-size: 35px;
+        }
+        #home{
+            background-image: url(Image/hinh-nen-4k-dep-cho-may-tinh-laptop-ipad-dien-thoai-di-dong-49.jpg);
+            height: 100vh;
+            width: 100%;
+            background-size: cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        #about{
+            height: 80vh;
+            background-color: aquamarine;
+        }
+        #services{
+            height: 80vh;
+            background-color: bisque;
+        }
+        #tours{
+            background-color: blueviolet;height: 80vh;
+        }
+        .fixed-nav{
+            background-color: white;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            transition: background-color .4s linear;
+        }
+        @media screen and (max-width:850px){
+            nav{
+                display: block;
+            }
+            .nav__logo{
+                width: 100%;
+            }
+            .nav__logo img{
+                width: 100px;
+            }
+            header{
+                background-color: aliceblue;
+                height: auto;
+            }
+            nav{
+                height: auto;
+                padding: 10px 20px;
+                transition: all .5s linear;
+            }
+            .icon{
+                display: block;
+            }
+            ul.nav__menu{
+                margin-top: 5px;
+                display: block;
+            }
+            .wrap{
+                height: 0;
+                overflow: hidden;
+                transition: all 0.5s linear;
+            }
+            
+            .show-wrap{
+                /* height dùng auto sẽ hiện ra ngay nên phải dùng px để transtion */
+                height: 144.2px;
+                transition: all .5s linear;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="nav__logo">
+                <img src="Image/hinh-nen-4k-dep-cho-may-tinh-laptop-ipad-dien-thoai-di-dong-26.jpg" alt="" srcset="">
+                <div class="icon">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+
+            <div class="wrap">
+                <ul class="nav__menu">
+                    <li><a href="#home">Home</a> </li>
+                    <li><a href="#about"> About</a></li>
+                    <li><a href="#services">Services</a> </li>
+                    <li><a href="#tours"> Tours</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <section id="home">
+            <div class="content">
+                <h2>Đặng Ngọc Hoài Nam</h2>
+                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quas eos neque sunt in? Id, necessitatibus quos quisquam distinctio laudantium fugiat?</p>
+                <button>CLICK</button>
+            </div>
+        </section>
+        <section id="about"><h2>About</h2></section>
+        <section id="services"><h2>Services</h2></section>
+        <section id="tours"><h2>Tours</h2></section>
+    </main>
+    <script>
+        // xử lí nav khi cuộn scroll
+        window.addEventListener('scroll', ()=>{
+        
+            const nav__height = document.querySelector('header').getBoundingClientRect().height;
+            // lấy chiều cao của thanh cuộn theo chiều dọc
+            const scroll__height = window.pageYOffset;
+            // console.log(document.getElementById('home').offsetTop)
+            //Mẹo làm nav hay ở responsive
+            // chú ý fixed-nav
+            if(scroll__height > nav__height){
+                document.querySelector('header').classList.add('fixed-nav')
+            }
+            else{
+                document.querySelector('header').classList.remove('fixed-nav')
+            }
+        })
+        //xử lí khi click vào link
+        const links = document.querySelectorAll('.nav__menu a');
+        links.forEach((link)=> {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const id = e.currentTarget.getAttribute("href").slice(1);
+                const element = document.getElementById(id);
+                const header__height = document.querySelector('header').getBoundingClientRect().height;
+                const scroll__height = window.pageYOffset;
+                const fixedNav = document.querySelector('header').classList.contains("fixed-nav");
+                // position = element.offsetTop thì thanh cuộn sẽ kéo element ở vị trí top = 0 cho nên element.offsetTop - header__height để thanh cuộn đấy lên làm cho element đẩy xuống(làm hiện ra)
+                var position = element.offsetTop - header__height;
+
+
+                console.log("--------------------------------")
+                //lấy chiều cao thanh cuộc
+                console.log("Scroll: " + scroll__height);
+                //lấy chiều cao của element so với gốc 
+                console.log("Element Ofset: " + element.offsetTop);
+                // lấy chiều cao của element
+                console.log("Element getBounhding: " + element.getBoundingClientRect().height);
+                if(fixedNav){
+
+                    position = position < 0 ? 0 : position;
+                }
+                else
+                {
+                    //vì khi trượt thì nó sẽ gắn class fixed-nav(position: fixed) cho header làm cho toàn bộ trang bị đẩy lên cho nên phải trừ thêm 1 lần header__height để kéo thanh cuộn lên
+                    position = position - header__height
+                }
+                console.log("Postion: " + position)
+                // chiều cao của thanh cuốn sẽ chạy tới position
+                window.scrollTo({
+                    left: 0,
+                    top: position,
+                });
+            })
+        })
+        document.querySelector('.icon').addEventListener('click', ()=>{
+            const header__height = document.querySelector('.wrap').getBoundingClientRect().height;
+            const fixedNav = document.querySelector('header').classList.contains("fixed-nav");
+            // if(fixedNav){
+            //     document.querySelector('.wrap').style.height = '144.2px'
+            // }
+            // else{
+            //     document.querySelector('.wrap').style.height = '0'
+            // }
+            document.querySelector('.wrap').classList.toggle('show-wrap');
+        })
+        
+    </script>
+</body>
+</html>

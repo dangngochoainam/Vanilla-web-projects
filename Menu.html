@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .main{
+            width: 80%;
+            margin: 0 auto;
+            background-color: azure;
+        }
+        h1{
+            margin: 80px 0 5px 0;
+            text-align: center;
+        }
+        .border{
+            background-color: rgb(194, 141, 44);
+            border: 2px rgb(194, 141, 44) solid;
+            width: 80px;
+            margin: 0 auto;
+        }
+        .top{
+            margin-top: 30px;
+        }
+        .navbars{
+            display: flex;
+            list-style-type: none;
+            justify-content: center;
+            font-size: 20px;
+        }
+        .navbar a{
+            text-decoration: none;
+            padding: 5px 10px;
+            border: 1px sandybrown solid;
+            border-radius: 10px;
+            width: 100%;
+            margin-right: 1rem;
+            color: sandybrown;
+        }
+        .navbar a:hover{
+            background-color: sandybrown;
+            color: white
+        }
+        .menus{
+            margin-top: 80px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        .menu{
+            width: 48%;
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+        .image-food{
+            width: 40%;
+        }
+        .image-food img{
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border: 4px sandybrown solid;
+            border-radius: 10px;
+        }
+        .info-food{
+            display: flex;
+            justify-content: space-between;
+            padding-bottom: 5px;
+            border-bottom: 1px dotted sandybrown;
+            font-size: 18px;
+            letter-spacing: 3px;
+            font-weight: bold;
+        }
+        .description-food{
+            /* flex: 1; */
+            width: 55%;
+            
+        }
+
+        .price-food{
+            color: sandybrown;
+            
+        }
+        .description-food p{
+            margin-top: 10px;
+            text-align: left;
+            word-spacing: 1px;
+            font-size: 17px;
+            line-height: 22px;
+            color: gray;
+        }
+        /* a[name="all"] */
+    </style>
+</head>
+<body>
+    <div class="main">
+        <h1>Our Menu</h1>
+        <div class="border"></div>
+        <div class="top">
+            <ul class="navbars">
+                <li class="navbar"><a href="#" name="all">All</a> </li>
+                <li class="navbar"><a href="#" name="breakfast"> Breakfast</a></li>
+                <li class="navbar"><a href="#"  name="lunch">Lunch</a> </li>
+                <li class="navbar"><a href="#"  name="shakes">Shakes</a> </li>
+                <li class="navbar"><a href="#"  name="dinner"> Dinner</a></li>
+            </ul>
+        </div>
+         <div class="menus">
+
+          <!-- <div class="menu breakfast all">
+                <div class="image-food">
+                    <img src="Image/hinh-nen-4k-dep-cho-may-tinh-laptop-ipad-dien-thoai-di-dong-26.jpg">
+                </div>
+                <div class="description-food">
+                    <div class="info-food">
+                        <div class="name-food">Buttermilk Pancakes
+                            </div>
+                        <div class="price-food">$15.99</div>
+                    </div>
+                    <p>I'm baby woke mlkshk wolf bitters live-edge blue bottle, hammock freegan copper mug whatever cold-pressed</p>
+                </div>
+            </div> -->
+            
+        </div>
+    </div>
+    <script>
+
+const menu = [
+  {
+    id: 1,
+    title: "buttermilk pancakes",
+    category: "breakfast",
+    price: 15.99,
+    img: "./images/item-1.jpeg",
+    desc: `I'm baby woke mlkshk wolf bitters live-edge blue bottle, hammock freegan copper mug whatever cold-pressed `,
+  },
+  {
+    id: 2,
+    title: "diner double",
+    category: "lunch",
+    price: 13.99,
+    img: "./images/item-2.jpeg",
+    desc: `vaporware iPhone mumblecore selvage raw denim slow-carb leggings gochujang helvetica man braid jianbing. Marfa thundercats `,
+  },
+  {
+    id: 3,
+    title: "godzilla milkshake",
+    category: "shakes",
+    price: 6.99,
+    img: "./images/item-3.jpeg",
+    desc: `ombucha chillwave fanny pack 3 wolf moon street art photo booth before they sold out organic viral.`,
+  },
+  {
+    id: 4,
+    title: "country delight",
+    category: "breakfast",
+    price: 20.99,
+    img: "./images/item-4.jpeg",
+    desc: `Shabby chic keffiyeh neutra snackwave pork belly shoreditch. Prism austin mlkshk truffaut, `,
+  },
+  {
+    id: 5,
+    title: "egg attack",
+    category: "lunch",
+    price: 22.99,
+    img: "./images/item-5.jpeg",
+    desc: `franzen vegan pabst bicycle rights kickstarter pinterest meditation farm-to-table 90's pop-up `,
+  },
+  {
+    id: 6,
+    title: "oreo dream",
+    category: "shakes",
+    price: 18.99,
+    img: "./images/item-6.jpeg",
+    desc: `Portland chicharrones ethical edison bulb, palo santo craft beer chia heirloom iPhone everyday`,
+  },
+  {
+    id: 7,
+    title: "bacon overflow",
+    category: "breakfast",
+    price: 8.99,
+    img: "./images/item-7.jpeg",
+    desc: `carry jianbing normcore freegan. Viral single-origin coffee live-edge, pork belly cloud bread iceland put a bird `,
+  },
+  {
+    id: 8,
+    title: "american classic",
+    category: "lunch",
+    price: 12.99,
+    img: "./images/item-8.jpeg",
+    desc: `on it tumblr kickstarter thundercats migas everyday carry squid palo santo leggings. Food truck truffaut  `,
+  },
+  {
+    id: 9,
+    title: "quarantine buddy",
+    category: "shakes",
+    price: 16.99,
+    img: "./images/item-9.jpeg",
+    desc: `skateboard fam synth authentic semiotics. Live-edge lyft af, edison bulb yuccie crucifix microdosing.`,
+  },
+  {
+    id: 10,
+    title: "bison steak",
+    category: "dinner",
+    price: 22.99,
+    img: "./images/item-10.jpeg",
+    desc: `skateboard fam synth authentic semiotics. Live-edge lyft af, edison bulb yuccie crucifix microdosing.`,
+  },
+];
+        // window.addEventListener("DOMContentLoaded", createListFood)
+        window.addEventListener("DOMContentLoaded", displayFoods(menu))
+        const foods = document.querySelectorAll('.menu');
+        const btns = document.querySelectorAll('a');
+
+        btns.forEach(btn => {
+            btn.addEventListener('click', choose)
+        })
+// hiển thị các item dụa vào sự kiện click, truyền vào 1 danh sách các item có category giống với category nút bấm
+        function displayFoods(list){
+            let html = [];
+            html = list.map((food) => {
+                    return`<div class="menu ${food.category}">
+                            <div class="image-food">
+                                <img src="Image/hinh-nen-4k-dep-cho-may-tinh-laptop-ipad-dien-thoai-di-dong-26.jpg">
+                            </div>
+                            <div class="description-food">
+                                <div class="info-food">
+                                    <div class="name-food">${food.title}
+                                        </div>
+                                    <div class="price-food">${food.price}</div>
+                                </div>
+                                <p>${food.desc}</p>
+                            </div>
+                        </div> `
+            })
+            document.querySelector('.menus').innerHTML = html.join('')
+        }
+
+       function choose(e){
+            let category = e.target.getAttribute('name');
+            //lấy ra danh sách các item có category giống với nút bấm
+            let list = menu.filter(item => {
+                if(item.category === category)
+                    return item;
+            })
+            if(category === 'all'){
+                displayFoods(menu)
+            }
+            else
+                displayFoods(list)
+       }
+    </script>
+</body>
+</html>

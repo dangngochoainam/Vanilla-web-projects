@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grocery Bud</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body{
+            background-color: hsl(210, 36%, 96%);;
+        }
+        section{
+            width: 90vw;
+            max-width: 40rem;
+            margin: 0 auto;
+            text-align: center;
+            background-color: white;
+            margin-top: 100px;
+            padding: 30px;
+            border-radius: 10px;
+        }
+        h1{
+            margin-bottom: 20px;
+        }
+        p.alert{
+            letter-spacing: 3px;
+            height: 15px;
+            font-size: 12px;
+            margin: 10px 0;
+            color: white;
+            text-align: center;
+        }
+        
+        #input{
+            width: 50%;
+            height: 25px;
+            border-radius: 5px;
+            padding-left: 10px;
+        }
+        .btn__submit{
+            width: 10%;
+            height: 25px;
+            border-radius: 5px;
+            background-color: hsl(205, 86%, 81%);;
+        }
+        .container{
+            width: 375px;
+            margin: 0 auto;
+        }
+        ul.items{
+            list-style-type: none;
+            margin-top: 30px;
+            
+        }
+        .item{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+        }
+        .btn-clearAll{
+            background-color: transparent;
+            border: 0;
+            letter-spacing: 2px;
+            color: rgb(170, 83, 83);
+            margin: 15px 0;
+        }
+        .btn__Control{
+            width: 40px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            border: 0;
+        }
+        .btn__Control button {
+            border: 0;
+            cursor: pointer;
+        }
+        .btn__Control button :hover{
+            opacity: 1;
+        }
+        .fa-edit{
+            color: hsl(125, 71%, 66%);
+            opacity: 0.7;
+        }
+        .fa-trash{
+            color: orangered;
+            opacity: 0.7;
+        }
+       .btn-clearAll{
+        display: none;
+    }
+    .showClearAll{
+        display: inline-block;
+       }
+    </style>
+</head>
+<body>
+    <section class="cart"> 
+        <p class="alert"></p>
+        <form class="form-input">
+            <h1>Grocery Bud</h1>
+            <input type="text" id="input" placeholder="e.g. Nam">
+            <button type="submit" class="btn__submit">Submit</button>
+        </form>
+        <div class="container">
+            <ul class="items">
+            </ul>
+            <button class="btn-clearAll">Clear Items</button>
+        </div>
+        
+    </section>
+    <script>
+
+
+        const $ = document.querySelector.bind(document);
+        const $$ = document.querySelectorAll.bind(document);
+        const items = document.querySelector('.items');
+        const input = document.querySelector('#input')
+        const btn__submit = document.querySelector('.btn__submit')
+        const btn__All = document.querySelector('.btn-clearAll')
+        let editFlag = false;
+        let editElement;
+        let editId;
+       
+        // Lister Event
+        // Khi click vào submit
+        btn__submit.addEventListener('click', addItem);
+        // Khi click vào clearAll
+        btn__All.addEventListener("click", clearItems);
+        // Khi trình duyệt load lên
+        window.addEventListener("DOMContentLoaded", setItems);
+
+        // xuất alert status
+        function displayAlert(str, status){
+            status == 'danger' ? $('.alert').style.backgroundColor = 'orange' : $('.alert').style.backgroundColor = 'hsl(125, 71%, 66%)'
+            $('.alert').innerHTML = str
+            setTimeout(() => 
+                {
+                    $('.alert').innerHTML = "";
+                    $('.alert').style.backgroundColor = 'transparent'
+                }, 1000)
+        }
+        // Thêm item
+        function addItem(e) {
+            e.preventDefault()
+            let value = input.value;
+            let id = new Date().getTime().toString();
+            if(value != "" && !editFlag){
+                let nodeItem = document.createElement('li');
+                let attr = document.createAttribute('data-id')
+                attr.value = id
+                nodeItem.innerHTML = `<p class="name__item">${value}</p>
+                    <div class="btn__Control">
+                        <button class = "edit"><i class="far fa-edit"></i></button>
+                        <button class = "delete"><i class="fas fa-trash"></i></button>
+                        
+                    </div>`
+                nodeItem.classList.add('item')
+                nodeItem.setAttributeNode(attr);
+                $('.items').appendChild(nodeItem); 
+                // đặt trình lắng nghe sự kiện cho từng node khi thêm vào
+                const btn_Del = nodeItem.querySelector('.delete');
+                btn_Del.addEventListener('click', deleteItem)
+                const btn_Edit = nodeItem.querySelector('.edit');
+                btn_Edit.addEventListener('click', editItem)
+                displayAlert("Item Added To The List", 'perfect')
+                document.querySelector('.btn-clearAll').classList.add('showClearAll');
+                addToLocalStorage(id, value)
+                setToBackDefault();
+            }
+            else if(value != "" && editFlag){
+                editElement.innerHTML = value;
+                displayAlert("Changed Value", 'perfect')
+                editLocalStorage(editId, value)
+                setToBackDefault();
+            }
+            else{
+                displayAlert("Please Enter Value", 'danger')
+                
+            }
+        }
+        
+        // thiết lập về mặc định
+        function setToBackDefault(){
+            input.value = "";
+            editFlag = false;
+            btn__submit.textContent = 'Submit'
+        }
+        // Xóa item
+        function deleteItem(e){
+            let parentNode = e.currentTarget.parentElement.parentElement;
+            editId = parentNode.getAttribute('data-id');
+            items.removeChild(parentNode);
+            let listItems = document.querySelectorAll('.item')
+            if (listItems.length === 0) {
+                document.querySelector('.btn-clearAll').classList.remove('showClearAll');
+            }
+            displayAlert('Item removed', 'danger')
+            removeFromLocalStorage(editId);
+        }
+
+        // xóa tất cả
+        function clearItems(){
+            let list = document.querySelectorAll('.item');
+            if(list.length > 0){
+                list.forEach(item => {
+                    items.removeChild(item);
+                    removeFromLocalStorage(item.getAttribute('data-id'))
+
+                })
+            }
+            document.querySelector('.btn-clearAll').classList.remove('showClearAll');
+            displayAlert("List Empty", 'danger');
+
+        }
+        // sửa item
+        function editItem(e){
+            let parentNode = e.currentTarget.parentElement.parentElement;
+            editElement = e.currentTarget.parentElement.previousElementSibling;
+            editId = parentNode.getAttribute('data-id')
+            btn__submit.textContent = 'Edit'
+            input.value = editElement.innerHTML;
+            editFlag = true;
+        }
+                       
+         // WORKING WITH LOCAL STORAGE
+
+         //lấy dữ liệu từ localStorage
+         function getDataFromLocalStorage(){
+            return localStorage.getItem('list') ? JSON.parse(localStorage.getItem('list')) : [];
+        }
+
+        function addToLocalStorage(id, value){
+            let item = {id, value};
+            let listItem = getDataFromLocalStorage();
+            listItem.push(item);
+            localStorage.setItem('list', JSON.stringify(listItem));
+
+        }
+        // sửa localStorage
+        function editLocalStorage(id, value){
+            let listItem = getDataFromLocalStorage();
+            listItem = listItem.map((item) => {
+                if(item.id === id){
+                    item.value = value;
+                }
+                return item;
+            })
+            localStorage.setItem('list', JSON.stringify(listItem))
+        }
+        // xóa localStorage
+        function removeFromLocalStorage(id) {
+            let listItem = getDataFromLocalStorage();
+            listItem = listItem.filter(function (item) {
+                if (item.id !== id) 
+                    return item;
+                
+            });
+            localStorage.setItem('list', JSON.stringify(listItem))
+
+        }
+        // tạo danh sách khi vừa up lên
+        function createList(id, value){
+            let nodeItem = document.createElement('li');
+                let attr = document.createAttribute('data-id')
+                attr.value = id
+                nodeItem.innerHTML = `<p class="name__item">${value}</p>
+                    <div class="btn__Control">
+                        <button class = "edit"><i class="far fa-edit"></i></button>
+                        <button class = "delete"><i class="fas fa-trash"></i></button>
+                        
+                    </div>`
+                nodeItem.classList.add('item')
+                nodeItem.setAttributeNode(attr);
+                $('.items').appendChild(nodeItem); 
+                const btn_Del = nodeItem.querySelector('.delete');
+                btn_Del.addEventListener('click', deleteItem)
+                const btn_Edit = nodeItem.querySelector('.edit');
+                btn_Edit.addEventListener('click', editItem)
+                
+        }
+
+        function setItems(){
+            let list = getDataFromLocalStorage();
+            if(list.length > 0){
+                list.forEach(item => {
+                    createList(item.id, item.value)
+                })
+                document.querySelector('.btn-clearAll').classList.add('showClearAll');
+            }
+            
+        }
+
+
+    </script>
+</body>
+</html>

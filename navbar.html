@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navbar</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        .main{
+            position: relative;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            padding:15px;
+            background-color: gainsboro;
+        }
+        h1{
+            letter-spacing: 3px;
+            font-size: 20px;
+        }
+        h1 > span{
+            color:silver;
+        }
+        .menu{
+            display: flex;
+            list-style-type: none;
+            width: 40%;
+            justify-content: space-evenly;
+            font-size: 20px;
+            
+        }
+        .icon{
+            width: 15%;
+            display: flex;
+            justify-content: space-evenly;
+            color: orange;
+        }
+        .menuIcon{
+            position: absolute;
+            right: 20px;
+            top: 15px;
+            font-size: 24px;
+            display: none;
+        }
+        
+
+        @media screen and (max-width: 800px){
+            h1{
+                width: 90%;
+
+            }
+            .menu{ 
+                display: block;
+                height: 0;
+                overflow: hidden;
+                transition: all .3s linear;
+                
+            }
+            .menu li {
+                height: 40px;
+            }
+            .menu li:nth-child(1) {
+                margin-top: 20px;
+            }
+            .icon{
+                display: none;
+            }
+            .menuIcon{
+                display: block;
+            }
+            .showMenu{
+                height: 8em;
+                width: 100%;
+                transition: height .3s linear;
+            }
+        }
+       
+            
+    </style>
+</head>
+<body>
+    <div class="main">
+        <h1>Coding width <span> HOAINAM</span></h1>
+        <ul class="menu">
+            <li class="home">Home</li>
+            <li class="about">About</li>
+            <li class="project">Project</li>
+            <li class="contact">Contact</li>
+        </ul>
+        <div class="icon">
+            <i class="fab fa-facebook-square"></i>
+            <i class="fab fa-twitter-square"></i>
+            <i class="fab fa-instagram"></i>
+            <i class="fab fa-github"></i>
+        </div>
+
+        <div class="menuIcon">
+            <i class="fas fa-bars"></i>
+        </div>
+    </div>
+    <script>
+        document.querySelector(".menuIcon").addEventListener('click', ()=>{
+            document.querySelector(".menu").classList.toggle('showMenu');
+        })
+    </script>
+</body>
+</html>

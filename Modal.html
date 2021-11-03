@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Modal</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body{
+            background-image: url("Image/hinh-nen-4k-dep-cho-may-tinh-lap-top-dien-thoai-\(11\).jpg");
+            background-size: cover;
+        }
+        .bgr{
+            background-color: aqua;
+            opacity: 0.4;
+        }
+        .boxs{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            width: 100vw;
+            
+        }
+        .box{
+            background-color: aliceblue;
+            width: 40%;
+            text-align: center;
+            height: 250px;
+            border-radius: 10px;
+        }
+        h1{
+            font-size: 50px;
+            color: rgb(35, 35, 165);
+            margin: 40px 10px;
+        }
+        button#open{
+            font-size: 24px;
+            background-color: rgb(42, 60, 221);
+            padding: 7px 5px;
+            color: white;
+            border-radius: 10px;
+            border: 1px inherit solid;
+        }
+        button#open:hover{
+            background-color: white;
+            color: rgb(42, 60, 221);
+            border: 1px currentColor solid;
+            cursor: pointer;
+        }
+        .box-hidden{
+            display: flex;
+            position: fixed;
+            top: 0;
+            left: 0;
+            justify-content: center;
+            align-items: center;
+            width: 100vw;
+            min-height: 100vh;
+            visibility: hidden;
+            z-index: -10;
+        }
+        .show{
+            
+            visibility: visible;
+            z-index: 9999;
+        }
+        .box-content{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgb(224, 227, 230);
+            width: 40%;
+            text-align: center;
+            height: 230px;
+            border-radius: 10px;
+            position: relative;
+        }
+        .box-content #close{
+            position: absolute;
+            right: 20px;
+            top:20px;
+            font-size: 24px;
+            background-color: inherit;
+            border: 0;
+        }
+        .box-content #close:hover{
+            color: red;
+            transform: rotate(180deg);
+            transition: transform 0.3s ease-in-out;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="main">
+        <div class="boxs">
+            <div class="box">
+                <h1>Modal Project</h1>
+                <button id="open">OPEN MODAL</button>
+            </div>
+        </div>
+        <div class="box-hidden">
+            <div class="box-content">
+                <h2>Modal Content</h2>
+                <button id="close"><i class="fas fa-times"></i></button>
+            </div>
+        </div>
+
+    </div>
+    <script>
+        document.querySelector("#open").addEventListener('click', ()=>{
+            document.querySelector(".boxs").classList.toggle("bgr");
+            document.querySelector(".box-hidden").classList.toggle("show");
+        })
+        document.querySelector("#close").addEventListener('click', ()=>{
+            document.querySelector(".box-hidden").classList.toggle("show");
+            document.querySelector(".boxs").classList.toggle("bgr");
+        })
+
+
+
+
+
+
+     
+    </script>
+</body>
+</html>

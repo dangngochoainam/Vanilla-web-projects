@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sidebar</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        .main{
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            padding:15px;
+            background-color: gainsboro;
+        }
+        h1{
+            letter-spacing: 3px;
+            font-size: 20px;
+        }
+        h1 > span{
+            color:silver;
+        }
+        .menu{
+            display: flex;
+            list-style-type: none;
+            width: 40%;
+            justify-content: space-evenly;
+            font-size: 20px;
+            text-align: center;
+            
+        }
+        .icon{
+            width: 15%;
+            display: flex;
+            justify-content: space-evenly;
+            color: orange;
+        }
+        .menuIcon{
+            display: none;
+        }
+        .iconClose{
+            display: none;
+        }
+        @media screen and (max-width: 700px) {
+            .menuIcon{
+                display: block;
+                position: fixed;
+                right: 20px;
+                top: 15px;
+                font-size: 24px;
+            }
+            .iconClose{
+                position: fixed;
+                right: 20px;
+                top: 15px;
+                font-size: 24px;
+            }
+            .menu{
+                display: block;
+                text-align: left;
+                flex: 1;
+            }
+            .menu li{
+                margin-bottom: 40px;
+            }
+            .main{
+                justify-content: space-between;
+                align-items: flex-start;
+                height: 100vh;
+                flex-direction: column;
+                flex-wrap: nowrap;
+                width: 50%;
+                transform: translateX(-100%);
+                transition: all .5s linear;  
+            }
+            .show{
+                transform: translateX(0);
+                transition: all .5s linear;
+            }
+            h1{
+                padding: 20px 0;
+                margin-bottom: 20px;
+            }
+            .icon{
+                margin-bottom: 10px ;
+                justify-content: space-evenly;
+                width: 100%;
+            }
+        }
+        @media screen and (max-width:550px){
+            .main{
+                width: 100%;
+                background-color: rgb(179, 48, 48);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="main">
+        <h1>Coding width <span> HOAINAM</span></h1>
+        <ul class="menu">
+            <li class="home">Home</li>
+            <li class="about">About</li>
+            <li class="project">Project</li>
+            <li class="contact">Contact</li>
+        </ul>
+        <div class="icon">
+            <i class="fab fa-facebook-square"></i>
+            <i class="fab fa-twitter-square"></i>
+            <i class="fab fa-instagram"></i>
+            <i class="fab fa-github"></i>
+        </div>
+    </div>
+    <div class="menuIcon">
+        <i class="fas fa-bars"></i>
+    </div>
+    <div class="iconClose">
+        <i class="fas fa-times"></i>
+    </div>
+    <script>
+        let menu = document.querySelector(".menuIcon");
+        const iconClose = document.querySelector('.iconClose');
+        menu.addEventListener('click', ()=>{
+            menu.style.display = 'none';
+            document.querySelector('.iconClose').style.display = 'block';
+            document.querySelector(".main").classList.add('show');
+        })
+        document.querySelector('.iconClose').addEventListener('click', ()=>{
+            menu.style.display = 'block';
+            document.querySelector('.iconClose').style.display = 'none';
+            document.querySelector(".main").classList.remove('show');
+        })
+        // sự kiện khi window thay đổi chiều rộng
+        window.addEventListener("resize", ()=>{
+            if(window.innerWidth > 700){
+
+                document.querySelector('.iconClose').style.display = 'none';
+                document.querySelector(".menuIcon").style.display = 'none';
+            }
+            else if(document.querySelector('.main').classList.contains('show')){
+                iconClose.style.display = 'block';
+
+            }
+            else{
+            menu.style.display = 'block';
+            }
+
+        });
+    </script>
+</body>
+</html>
